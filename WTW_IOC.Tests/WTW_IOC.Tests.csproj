@@ -109,6 +109,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\WTW_IOC.Common\WTW_IOC.Common.csproj">
+      <Project>{fa27a1c6-59e9-487d-93d1-96a89b504e23}</Project>
+      <Name>WTW_IOC.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WTW_IOC\WTW_IOC.Web.csproj">
       <Project>{7FA6E58B-69A6-422B-A45D-D813FC0F7B5A}</Project>
       <Name>WTW_IOC.Web</Name>

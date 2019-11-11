@@ -41,8 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Data\ISampleData.cs" />
+    <Compile Include="Data\SampleData.cs" />
     <Compile Include="IIoc.cs" />
+    <Compile Include="Logic\ISampleLogic.cs" />
+    <Compile Include="Logic\SampleLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WTWIOC.cs" />
   </ItemGroup>

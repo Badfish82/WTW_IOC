@@ -1,26 +1,39 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Reflection;
 
 namespace WTW_IOC.Common
 {
-    public class WTWIOC : IIoc
+    public class WTWIOC
     {
-        public void Register<T>(T val)
+        private static Dictionary<Type, Type> types = new Dictionary<Type, Type>();
+
+        public static void Register<TContract, TImpl>()
         {
-            throw new NotImplementedException();
+            types[typeof(TContract)] = typeof(TImpl);
         }
 
-        public void RegisterType(Type type)
+        public static void RegisterType<TContract>(Type type)
         {
-            throw new NotImplementedException();
+            types[typeof(TContract)] = type;
         }
 
-        public T Resolve<T>()
+        public static T Resolve<T>()
         {
-            throw new NotImplementedException();
+            return (T)Resolve(typeof(T));
+        }
+
+        public static Object Resolve(Type contract)
+        {
+            Type impl = types[contract];
+            var constructor = impl.GetConstructors()[0];
+            var paramInfos = constructor.GetParameters();
+            if (!paramInfos.Any())
+                return Activator.CreateInstance(impl);
+
+            var parameters = paramInfos.Select(pi => Resolve(pi.ParameterType)).ToArray();
+            return constructor.Invoke(parameters);
         }
     }
 }

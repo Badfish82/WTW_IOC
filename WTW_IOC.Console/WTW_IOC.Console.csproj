@@ -49,5 +49,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WTW_IOC.Common\WTW_IOC.Common.csproj">
+      <Project>{fa27a1c6-59e9-487d-93d1-96a89b504e23}</Project>
+      <Name>WTW_IOC.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

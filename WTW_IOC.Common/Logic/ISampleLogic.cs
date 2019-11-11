@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WTW_IOC.Common
+namespace WTW_IOC.Common.Logic
 {
-    public class Class1
+    public interface ISampleLogic
     {
+        string[] LoadSampleModel();
     }
 }
