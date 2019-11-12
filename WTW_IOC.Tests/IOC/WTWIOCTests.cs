@@ -26,6 +26,7 @@ namespace WTW_IOC.Tests.IOC
             var model = sampleLogic.LoadSampleModel();
 
             Assert.NotNull(model);
+            Assert.Equal(6, model.Length);
         }
 
         [Fact]
@@ -41,10 +42,7 @@ namespace WTW_IOC.Tests.IOC
             string message = sampleLogic.AddMessage(4, 6);
 
             Assert.NotNull(message);
-
-            //Console.WriteLine(test.SubtractMessage(100239, 83837));
-            //Console.WriteLine(test.MultiplyMessage(1000, 100));
-            //Console.WriteLine(test.DivideMessage(1000000, 100));
+            Assert.Equal("4 + 6 = 10", message);
         }
 
         [Fact]
