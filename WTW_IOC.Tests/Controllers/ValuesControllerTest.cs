@@ -1,52 +1,60 @@
-﻿using System;
+﻿using Moq;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Web.Http;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using WTW_IOC;
-using WTW_IOC.Controllers;
+using WTW_IOC.Logic.Logic;
+using WTW_IOC.Web.Controllers;
+using Xunit;
 
 namespace WTW_IOC.Tests.Controllers
 {
-    [TestClass]
     public class ValuesControllerTest
     {
-        [TestMethod]
+        private Mock<ISampleLogic> _mockSampleLogic;
+
+        public ValuesControllerTest()
+        {
+            _mockSampleLogic = new Mock<ISampleLogic>();
+        }
+
+        [Fact]
         public void Get()
         {
             // Arrange
-            ValuesController controller = new ValuesController();
+            ValuesController controller = new ValuesController(_mockSampleLogic.Object);
 
             // Act
             IEnumerable<string> result = controller.Get();
 
             // Assert
-            Assert.IsNotNull(result);
-            Assert.AreEqual(2, result.Count());
-            Assert.AreEqual("value1", result.ElementAt(0));
-            Assert.AreEqual("value2", result.ElementAt(1));
+            _mockSampleLogic.Verify(sl => sl.AddMessage(1,2), Times.Once);
+            _mockSampleLogic.Verify(sl => sl.SubtractMessage(5, 3), Times.Once);
+            _mockSampleLogic.Verify(sl => sl.MultiplyMessage(99, 99), Times.Once);
+            _mockSampleLogic.Verify(sl => sl.DivideMessage(100, 10), Times.Once);
+            Assert.NotNull(result);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetById()
         {
             // Arrange
-            ValuesController controller = new ValuesController();
+            int val = 5;
+            string returnVal = $"1 + {val} = 6";
+            ValuesController controller = new ValuesController(_mockSampleLogic.Object);
+            _mockSampleLogic.Setup(sl => sl.AddMessage(1, val)).Returns(returnVal);
 
             // Act
-            string result = controller.Get(5);
+            string result = controller.Get(val);
 
             // Assert
-            Assert.AreEqual("value", result);
+            _mockSampleLogic.Verify(sl => sl.AddMessage(1, val), Times.Once);
+            Assert.NotNull(result);
+            Assert.Equal(returnVal, result);
         }
 
-        [TestMethod]
+        [Fact]
         public void Post()
         {
             // Arrange
-            ValuesController controller = new ValuesController();
+            ValuesController controller = new ValuesController(_mockSampleLogic.Object);
 
             // Act
             controller.Post("value");
@@ -54,11 +62,11 @@ namespace WTW_IOC.Tests.Controllers
             // Assert
         }
 
-        [TestMethod]
+        [Fact]
         public void Put()
         {
             // Arrange
-            ValuesController controller = new ValuesController();
+            ValuesController controller = new ValuesController(_mockSampleLogic.Object);
 
             // Act
             controller.Put(5, "value");
@@ -66,11 +74,11 @@ namespace WTW_IOC.Tests.Controllers
             // Assert
         }
 
-        [TestMethod]
+        [Fact]
         public void Delete()
         {
             // Arrange
-            ValuesController controller = new ValuesController();
+            ValuesController controller = new ValuesController(_mockSampleLogic.Object);
 
             // Act
             controller.Delete(5);

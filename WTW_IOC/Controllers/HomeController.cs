@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Web;
 using System.Web.Mvc;
-using WTW_IOC.Common.Logic;
+using WTW_IOC.Logic.Logic;
 
 namespace WTW_IOC.Web.Controllers
 {

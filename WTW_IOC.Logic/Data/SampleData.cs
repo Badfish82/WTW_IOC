@@ -1,13 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace WTW_IOC.Common.Data
+namespace WTW_IOC.Logic.Data
 {
     public class SampleData : ISampleData
     {
+        public Guid InstanceId { get; }
+
+        public SampleData()
+        {
+            InstanceId = Guid.NewGuid();
+        }
+
         public string[] LoadData()
         {
             return new string[]

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WTW_IOC.Common.Logic
+namespace WTW_IOC.Logic.Logic
 {
-    public interface ISampleLogic
+    public interface ISampleLogic: IInstance
     {
         string[] LoadSampleModel();
         string AddMessage(int first, int second);

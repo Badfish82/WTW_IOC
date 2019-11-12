@@ -87,7 +87,7 @@ namespace WTW_IOC.Common
                 return creator.Resolver.Resolve(contract, creator.Type);
 
             var dependencies = paramInfos.Select(pi => Resolve(pi.ParameterType)).ToArray();
-            return constructor.Invoke(dependencies);
+            return creator.Resolver.Resolve(contract, constructor, dependencies);
         }
 
         public IEnumerable<object> ResolveAll(Type contract)

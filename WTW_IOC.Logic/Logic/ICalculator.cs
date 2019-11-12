@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WTW_IOC.Common.Logic
+namespace WTW_IOC.Logic.Logic
 {
-    public interface ICalculator
+    public interface ICalculator : IInstance
     {
         int Add(int first, int second);
         int Subtract(int first, int second);

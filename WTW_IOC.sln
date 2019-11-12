@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WTW_IOC.Console", "WTW_IOC.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{E41EF44D-FFDF-4EC8-AFD0-755C87D62820}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WTW_IOC.Logic", "WTW_IOC.Logic\WTW_IOC.Logic.csproj", "{5A8EBD4B-C388-4AB6-8081-22966B638391}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{5BB7FFF5-DB83-478D-99A7-C8D3736E6A22}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5BB7FFF5-DB83-478D-99A7-C8D3736E6A22}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5BB7FFF5-DB83-478D-99A7-C8D3736E6A22}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A8EBD4B-C388-4AB6-8081-22966B638391}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A8EBD4B-C388-4AB6-8081-22966B638391}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A8EBD4B-C388-4AB6-8081-22966B638391}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A8EBD4B-C388-4AB6-8081-22966B638391}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

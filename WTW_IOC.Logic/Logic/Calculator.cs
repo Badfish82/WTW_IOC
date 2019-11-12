@@ -3,16 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WTW_IOC.Common.Data;
+using WTW_IOC.Logic.Data;
 
-namespace WTW_IOC.Common.Logic
+namespace WTW_IOC.Logic.Logic
 {
     public class Calculator : ICalculator
     {
         private ISampleData _sampleData;
 
+        public Guid InstanceId { get; }
+
         public Calculator(ISampleData sampleData)
         {
+            InstanceId = Guid.NewGuid();
             _sampleData = sampleData;
         }
 

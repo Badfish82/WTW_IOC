@@ -1,19 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WTW_IOC.Common.Data;
+using WTW_IOC.Logic.Data;
 
-namespace WTW_IOC.Common.Logic
+namespace WTW_IOC.Logic.Logic
 {
     public class SampleLogic : ISampleLogic
     {
         private ISampleData _sampleData;
         private ICalculator _calculator;
 
+        public Guid InstanceId { get; }
+
         public SampleLogic(ICalculator calculator, ISampleData sampleData)
         {
+            InstanceId = Guid.NewGuid();
             _calculator = calculator;
             _sampleData = sampleData;
         }
@@ -44,7 +43,7 @@ namespace WTW_IOC.Common.Logic
         public string DivideMessage(int first, int second)
         {
             double divided = _calculator.Divide(first, second);
-            return $"{first} % {second} = {divided:0:##}";
+            return $"{first} % {second} = {divided}";
         }
 
 

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WTW_IOC.Common.Data
+namespace WTW_IOC.Logic.Data
 {
-    public interface ISampleData
+    public interface ISampleData : IInstance
     {
         string[] LoadData();
     }

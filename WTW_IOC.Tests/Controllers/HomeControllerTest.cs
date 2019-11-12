@@ -1,25 +1,35 @@
-﻿using System.Web.Mvc;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using WTW_IOC;
-using WTW_IOC.Controllers;
+﻿using Moq;
+using System.Web.Mvc;
+using WTW_IOC.Logic.Logic;
+using WTW_IOC.Web.Controllers;
+using Xunit;
 
 namespace WTW_IOC.Tests.Controllers
 {
-    [TestClass]
     public class HomeControllerTest
     {
-        [TestMethod]
+        private Mock<ISampleLogic> _mockSampleLogic;
+
+        public HomeControllerTest()
+        {
+            _mockSampleLogic = new Mock<ISampleLogic>();
+        }
+
+        [Fact]
         public void Index()
         {
             // Arrange
-            HomeController controller = new HomeController();
+            HomeController controller = new HomeController(_mockSampleLogic.Object);
 
             // Act
-            ViewResult result = controller.Index() as ViewResult;
+            ContentResult result = controller.Index() as ContentResult;
 
             // Assert
-            Assert.IsNotNull(result);
-            Assert.AreEqual("Home Page", result.ViewBag.Title);
+            _mockSampleLogic.Verify(sl => sl.AddMessage(1, 2), Times.Once);
+            _mockSampleLogic.Verify(sl => sl.SubtractMessage(10, 7), Times.Once);
+            _mockSampleLogic.Verify(sl => sl.MultiplyMessage(10000, 5), Times.Once);
+            _mockSampleLogic.Verify(sl => sl.DivideMessage(2000, 2), Times.Once);
+            Assert.NotNull(result);
         }
     }
 }

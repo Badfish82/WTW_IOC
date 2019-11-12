@@ -2,8 +2,8 @@
 using System.Web.Http;
 using System.Web.Mvc;
 using WTW_IOC.Common;
-using WTW_IOC.Common.Data;
-using WTW_IOC.Common.Logic;
+using WTW_IOC.Logic.Data;
+using WTW_IOC.Logic.Logic;
 using WTW_IOC.Web.Controllers;
 using WTW_IOC.Web.IOC;
 

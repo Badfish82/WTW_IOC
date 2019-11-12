@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace WTW_IOC.Common.Resolvers
 {
@@ -11,6 +12,14 @@ namespace WTW_IOC.Common.Resolvers
         {
             if (!values.ContainsKey(contractType))
                 values[contractType] = Activator.CreateInstance(implType);
+
+            return values[contractType];
+        }
+
+        public object Resolve(Type contractType, ConstructorInfo constructor, object[] dependencies)
+        {
+            if (!values.ContainsKey(contractType))
+                values[contractType] = constructor.Invoke(dependencies);
 
             return values[contractType];
         }

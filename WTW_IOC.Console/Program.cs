@@ -1,7 +1,7 @@
 ﻿using System;
 using WTW_IOC.Common;
-using WTW_IOC.Common.Data;
-using WTW_IOC.Common.Logic;
+using WTW_IOC.Logic.Data;
+using WTW_IOC.Logic.Logic;
 
 namespace WTW_IOC.ConsoleApp
 {

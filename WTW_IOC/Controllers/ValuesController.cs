@@ -4,7 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using WTW_IOC.Common.Logic;
+using WTW_IOC.Logic.Logic;
 
 namespace WTW_IOC.Web.Controllers
 {
@@ -20,7 +20,10 @@ namespace WTW_IOC.Web.Controllers
         // GET api/values
         public IEnumerable<string> Get()
         {
-            return new string[] { _sampleLogic.AddMessage(1,2), _sampleLogic.SubtractMessage(5, 3), _sampleLogic.MultiplyMessage(99,99), _sampleLogic.DivideMessage(100, 10) };
+            return new string[] { _sampleLogic.AddMessage(1,2),
+                                  _sampleLogic.SubtractMessage(5, 3),
+                                  _sampleLogic.MultiplyMessage(99,99),
+                                  _sampleLogic.DivideMessage(100, 10) };
         }
 
         // GET api/values/5
