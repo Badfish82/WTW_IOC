@@ -11,7 +11,7 @@ namespace WTW_IOC.Common
         private readonly SingletonResolver _singletonResolver = new SingletonResolver();
         private TransientResolver _transientResolver;
 
-        private readonly Dictionary<Type, Creator> types = new Dictionary<Type, Creator>();  // Make static if we want to cross container boundaries
+        private static readonly Dictionary<Type, Creator> types = new Dictionary<Type, Creator>();  // Make static if we want to cross container boundaries
 
         /// <summary>
         /// Default Constructor
@@ -88,6 +88,22 @@ namespace WTW_IOC.Common
 
             var dependencies = paramInfos.Select(pi => Resolve(pi.ParameterType)).ToArray();
             return constructor.Invoke(dependencies);
+        }
+
+        public IEnumerable<object> ResolveAll(Type contract)
+        {
+            if (!types.ContainsKey(contract))
+                throw new Exception($"Unable to resolve type contract: {contract.Name}. Please register the contract prior to resolving.");
+
+            Creator creator = types[contract];
+            ConstructorInfo constructor = creator.Type.GetConstructors()[0];
+            ParameterInfo[] paramInfos = constructor.GetParameters();
+            if (!paramInfos.Any())
+                return new List<object> { creator.Resolver.Resolve(contract, creator.Type) };
+
+            var dependencies = paramInfos.Select(pi => Resolve(pi.ParameterType)).ToList();
+            dependencies.Add(constructor.Invoke(dependencies.ToArray()));
+            return dependencies;
         }
 
         public void Dispose()
