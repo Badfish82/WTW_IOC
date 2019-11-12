@@ -2,38 +2,81 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using WTW_IOC.Common.Resolvers;
 
 namespace WTW_IOC.Common
 {
-    public class WTWIOC
+    public class WTWIOC : IDisposable
     {
-        private static Dictionary<Type, Type> types = new Dictionary<Type, Type>();
+        private readonly SingletonResolver _singletonResolver = new SingletonResolver();
+        private readonly TransientResolver _transientResolver;
 
-        public static void Register<TContract, TImpl>()
+        private readonly Dictionary<Type, Creator> types = new Dictionary<Type, Creator>();
+
+        public WTWIOC()
         {
-            types[typeof(TContract)] = typeof(TImpl);
+            _transientResolver = new TransientResolver();
         }
 
-        public static void RegisterType<TContract>(Type type)
+        private WTWIOC(SingletonResolver singletonResolver)
+            : this()
         {
-            types[typeof(TContract)] = type;
+            _singletonResolver = singletonResolver;
         }
 
-        public static T Resolve<T>()
+        public WTWIOC AddContainer()
+        {
+            return new WTWIOC(_singletonResolver);
+        }
+
+        public void Register<TContract, TImpl>(LifetimeScopeType scope = LifetimeScopeType.Transient)
+        {
+            RegisterType<TContract>(typeof(TImpl), scope);
+        }
+
+        public void RegisterType<TContract>(Type type, LifetimeScopeType scope = LifetimeScopeType.Transient)
+        {
+            IResolver resolver = GetResolver(scope);
+            types[typeof(TContract)] = new Creator { Type = type, Resolver = resolver };
+        }
+
+        public T Resolve<T>()
         {
             return (T)Resolve(typeof(T));
         }
 
-        public static Object Resolve(Type contract)
+        public object Resolve(Type contract)
         {
-            Type impl = types[contract];
-            var constructor = impl.GetConstructors()[0];
-            var paramInfos = constructor.GetParameters();
-            if (!paramInfos.Any())
-                return Activator.CreateInstance(impl);
+            if (!types.ContainsKey(contract))
+                throw new Exception($"Unable to resolve type contract: {contract.Name}. Please register the contract prior to resolving.");
 
-            var parameters = paramInfos.Select(pi => Resolve(pi.ParameterType)).ToArray();
-            return constructor.Invoke(parameters);
+            Creator creator = types[contract];
+            ConstructorInfo constructor = creator.Type.GetConstructors()[0];
+            ParameterInfo[] paramInfos = constructor.GetParameters();
+            if (!paramInfos.Any())
+                return creator.Resolver.Resolve(contract, creator.Type);
+
+            var dependencies = paramInfos.Select(pi => Resolve(pi.ParameterType)).ToArray();
+            return constructor.Invoke(dependencies);
+        }
+
+        public void Dispose()
+        {
+            throw new NotImplementedException();
+        }
+
+        private IResolver GetResolver(LifetimeScopeType scopeType = LifetimeScopeType.Transient)
+        {
+            switch (scopeType)
+            {                
+                case LifetimeScopeType.PerInstance:
+                    return new InstanceResolver();
+                case LifetimeScopeType.Singleton:
+                    return _singletonResolver;
+                case LifetimeScopeType.Transient:
+                default:
+                    return _transientResolver;
+            }   
         }
     }
 }
