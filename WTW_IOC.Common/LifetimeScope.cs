@@ -7,28 +7,28 @@ using WTW_IOC.Common.Resolvers;
 
 namespace WTW_IOC.Common
 {
-    public class LifetimeScope : IDisposable
-    {
-        public LifetimeScopeType ScopeType { get; set; }
-        public IResolver Resolver { get; set; }
+    //public class LifetimeScope : IDisposable
+    //{
+    //    public LifetimeScopeType ScopeType { get; set; }
+    //    public IResolver Resolver { get; set; }
         
 
-        public LifetimeScope(LifetimeScopeType scopeType)
-        {
-            ScopeType = scopeType;
-        }
+    //    public LifetimeScope(LifetimeScopeType scopeType)
+    //    {
+    //        ScopeType = scopeType;
+    //    }
 
-        public void BeginLifetimeScope()
-        {
-            Resolver = new TransientResolver();
-        }
+    //    public void BeginLifetimeScope()
+    //    {
+    //        Resolver = new TransientResolver();
+    //    }
 
-        public void Dispose()
-        {
-            //Resolver.Clear();
-        }
+    //    public void Dispose()
+    //    {
+    //        //Resolver.Clear();
+    //    }
         
-    }
+    //}
 
     public enum LifetimeScopeType
     {

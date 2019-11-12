@@ -9,42 +9,72 @@ namespace WTW_IOC.Common
     public class WTWIOC : IDisposable
     {
         private readonly SingletonResolver _singletonResolver = new SingletonResolver();
-        private readonly TransientResolver _transientResolver;
+        private TransientResolver _transientResolver;
 
-        private readonly Dictionary<Type, Creator> types = new Dictionary<Type, Creator>();
+        private readonly Dictionary<Type, Creator> types = new Dictionary<Type, Creator>();  // Make static if we want to cross container boundaries
 
+        /// <summary>
+        /// Default Constructor
+        /// </summary>
         public WTWIOC()
         {
             _transientResolver = new TransientResolver();
         }
 
+        /// <summary>
+        /// Construct IOC Container with singleton instance
+        /// </summary>
         private WTWIOC(SingletonResolver singletonResolver)
             : this()
         {
             _singletonResolver = singletonResolver;
         }
 
+        /// <summary>
+        /// Add a sub-contrainer for the current container
+        /// </summary>
+        /// <returns></returns>
         public WTWIOC AddContainer()
         {
             return new WTWIOC(_singletonResolver);
         }
 
+        /// <summary>
+        /// Register a contract and implementation types
+        /// </summary>
+        /// <param name="scope">Lifetime Scope (Singleton, Transient, PerInstance)</param>
         public void Register<TContract, TImpl>(LifetimeScopeType scope = LifetimeScopeType.Transient)
         {
             RegisterType<TContract>(typeof(TImpl), scope);
         }
 
-        public void RegisterType<TContract>(Type type, LifetimeScopeType scope = LifetimeScopeType.Transient)
+
+        /// <summary>
+        /// Register a contract and implementation types
+        /// </summary>
+        /// <param name="implType">Implementation Type</param>
+        /// <param name="scope">Lifetime Scope (Singleton, Transient, PerInstance)</param>
+        public void RegisterType<TContract>(Type implType, LifetimeScopeType scope = LifetimeScopeType.Transient)
         {
             IResolver resolver = GetResolver(scope);
-            types[typeof(TContract)] = new Creator { Type = type, Resolver = resolver };
+            types[typeof(TContract)] = new Creator { Type = implType, Resolver = resolver };
         }
 
+        /// <summary>
+        /// Resolve the implementation of the registered contract
+        /// </summary>
+        /// <typeparam name="T">Implementation of the contract</typeparam>
+        /// <returns>Implementation value</returns>
         public T Resolve<T>()
         {
             return (T)Resolve(typeof(T));
         }
 
+        /// <summary>
+        /// Resolve the implementation of the registered contract
+        /// </summary>
+        /// <param name="contract">Register contract type</param>
+        /// <returns>Implementation value (must be cast to implementation type)</returns>
         public object Resolve(Type contract)
         {
             if (!types.ContainsKey(contract))
@@ -62,7 +92,7 @@ namespace WTW_IOC.Common
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            _transientResolver = null;
         }
 
         private IResolver GetResolver(LifetimeScopeType scopeType = LifetimeScopeType.Transient)
