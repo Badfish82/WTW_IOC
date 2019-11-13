@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WTW_IOC.IOC
 {
-    public interface IIoc
+    public interface IIoc : IDisposable
     {
-        void Register<T>(T val);
-        void RegisterType(Type type);
+        WTWIOC AddContainer();
+        void Register<TContract, TImpl>(LifetimeScopeType scope);
+        void RegisterType<TContract>(Type implType, LifetimeScopeType scope);
         T Resolve<T>();
+        object Resolve(Type contract);
+        IEnumerable<object> ResolveAll(Type contract);
     }
 }

@@ -6,12 +6,12 @@ using WTW_IOC.IOC.Resolvers;
 
 namespace WTW_IOC.IOC
 {
-    public class WTWIOC : IDisposable
+    public class WTWIOC : IIoc
     {
         private readonly SingletonResolver _singletonResolver = new SingletonResolver();
         private TransientResolver _transientResolver;
 
-        private static readonly Dictionary<Type, Creator> types = new Dictionary<Type, Creator>();  // Make static if we want to cross container boundaries
+        private static readonly Dictionary<Type, Creator> types = new Dictionary<Type, Creator>();  // Make static if we want to cross container registrations
 
         /// <summary>
         /// Default Constructor
