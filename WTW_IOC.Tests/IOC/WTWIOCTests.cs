@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WTW_IOC.IOC;
 using WTW_IOC.Logic.Data;
 using WTW_IOC.Logic;
