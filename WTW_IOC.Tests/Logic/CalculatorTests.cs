@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WTW_IOC.Logic.Data;
-using WTW_IOC.Logic.Logic;
+using WTW_IOC.Logic;
 using Xunit;
 
 namespace WTW_IOC.Tests.Logic

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using WTW_IOC.Common.Resolvers;
+using WTW_IOC.IOC.Resolvers;
 
-namespace WTW_IOC.Common
+namespace WTW_IOC.IOC
 {
     public class WTWIOC : IDisposable
     {

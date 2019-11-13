@@ -1,6 +1,6 @@
 ﻿using Moq;
 using WTW_IOC.Logic.Data;
-using WTW_IOC.Logic.Logic;
+using WTW_IOC.Logic;
 using Xunit;
 
 namespace WTW_IOC.Tests.Logic

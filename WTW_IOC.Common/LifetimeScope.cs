@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WTW_IOC.Common
+namespace WTW_IOC.IOC
 {
 
     public enum LifetimeScopeType

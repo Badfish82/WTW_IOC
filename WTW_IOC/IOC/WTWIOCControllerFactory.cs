@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
 using System.Web.Routing;
-using WTW_IOC.Common;
+using WTW_IOC.IOC;
 
 namespace WTW_IOC.Web.IOC
 {

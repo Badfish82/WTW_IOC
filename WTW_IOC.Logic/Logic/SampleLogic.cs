@@ -1,7 +1,7 @@
 ﻿using System;
 using WTW_IOC.Logic.Data;
 
-namespace WTW_IOC.Logic.Logic
+namespace WTW_IOC.Logic
 {
     public class SampleLogic : ISampleLogic
     {

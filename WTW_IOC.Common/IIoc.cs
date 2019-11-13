@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WTW_IOC.Common
+namespace WTW_IOC.IOC
 {
     public interface IIoc
     {

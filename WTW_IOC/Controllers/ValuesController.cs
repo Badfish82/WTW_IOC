@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Http;
-using WTW_IOC.Logic.Logic;
+using WTW_IOC.Logic;
 
 namespace WTW_IOC.Web.Controllers
 {

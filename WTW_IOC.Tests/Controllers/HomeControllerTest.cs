@@ -1,6 +1,6 @@
 ﻿using Moq;
 using System.Web.Mvc;
-using WTW_IOC.Logic.Logic;
+using WTW_IOC.Logic;
 using WTW_IOC.Web.Controllers;
 using Xunit;
 

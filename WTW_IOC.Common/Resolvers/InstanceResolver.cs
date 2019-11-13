@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace WTW_IOC.Common.Resolvers
+namespace WTW_IOC.IOC.Resolvers
 {
     public class InstanceResolver : IResolver
     {

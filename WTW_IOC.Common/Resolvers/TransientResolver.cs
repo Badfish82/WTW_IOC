@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace WTW_IOC.Common.Resolvers
+namespace WTW_IOC.IOC.Resolvers
 {
     public class TransientResolver : IResolver
     {

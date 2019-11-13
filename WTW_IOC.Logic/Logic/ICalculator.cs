@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WTW_IOC.Logic.Logic
+namespace WTW_IOC.Logic
 {
     public interface ICalculator : IInstance
     {

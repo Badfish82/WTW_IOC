@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 using System.Web.Mvc;
-using WTW_IOC.Logic.Logic;
+using WTW_IOC.Logic;
 
 namespace WTW_IOC.Web.Controllers
 {
