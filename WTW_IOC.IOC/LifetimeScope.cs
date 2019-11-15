@@ -2,7 +2,6 @@
 
 namespace WTW_IOC.IOC
 {
-
     public enum LifetimeScopeType
     {
         PerInstance,

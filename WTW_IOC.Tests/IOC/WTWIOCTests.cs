@@ -95,14 +95,13 @@ namespace WTW_IOC.Tests.IOC
             var container = new WTWIOC();
             container.Register<ISampleData, SampleData>(LifetimeScopeType.Transient);
             var container2 = container.AddContainer();
-            container2.Register<ISampleData, SampleData>(LifetimeScopeType.Transient);
 
             var sampleData = container.Resolve<ISampleData>();
             var sampleData2 = container2.Resolve<ISampleData>();
 
             Assert.NotNull(sampleData);
             Assert.NotNull(sampleData);
-            Assert.NotEqual(sampleData.InstanceId, sampleData.InstanceId);
+            Assert.NotEqual(sampleData.InstanceId, sampleData2.InstanceId);
         }
 
         [Fact]

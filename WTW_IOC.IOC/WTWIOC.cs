@@ -56,8 +56,8 @@ namespace WTW_IOC.IOC
         /// <param name="scope">Lifetime Scope (Singleton, Transient, PerInstance)</param>
         public void RegisterType<TContract>(Type implType, LifetimeScopeType scope = LifetimeScopeType.Transient)
         {
-            IResolver resolver = GetResolver(scope);
-            types[typeof(TContract)] = new Creator { Type = implType, Resolver = resolver };
+            //IResolver resolver = GetResolver(scope);
+            types[typeof(TContract)] = new Creator { Type = implType, Scope = scope };
         }
 
         /// <summary>
@@ -83,11 +83,12 @@ namespace WTW_IOC.IOC
             Creator creator = types[contract];
             ConstructorInfo constructor = creator.Type.GetConstructors()[0];
             ParameterInfo[] paramInfos = constructor.GetParameters();
+            IResolver resolver = GetResolver(creator.Scope);
             if (!paramInfos.Any())
-                return creator.Resolver.Resolve(contract, creator.Type);
+                return resolver.Resolve(contract, creator.Type);
 
             var dependencies = paramInfos.Select(pi => Resolve(pi.ParameterType)).ToArray();
-            return creator.Resolver.Resolve(contract, constructor, dependencies);
+            return resolver.Resolve(contract, constructor, dependencies);
         }
 
         public IEnumerable<object> ResolveAll(Type contract)
@@ -98,8 +99,9 @@ namespace WTW_IOC.IOC
             Creator creator = types[contract];
             ConstructorInfo constructor = creator.Type.GetConstructors()[0];
             ParameterInfo[] paramInfos = constructor.GetParameters();
+            IResolver resolver = GetResolver(creator.Scope);
             if (!paramInfos.Any())
-                return new List<object> { creator.Resolver.Resolve(contract, creator.Type) };
+                return new List<object> { resolver.Resolve(contract, creator.Type) };
 
             var dependencies = paramInfos.Select(pi => Resolve(pi.ParameterType)).ToList();
             dependencies.Add(constructor.Invoke(dependencies.ToArray()));
